@@ -19,20 +19,31 @@
        nav ## geolocation
 
      (* Position callback *)
-     let position_callback pos_obj =
+     let react_position_callback pos_obj =
        let lat = Js.to_float (pos_obj ## coords ## latitude)
        and lon = Js.to_float (pos_obj ## coords ## longitude) in
-       let _ = Boa_react.set signal_lat lat in
+       Boa_react.set signal_lat lat;
        Boa_react.set signal_lon lon
 
      (* reactive caller *)
      let process () =
-       geo_obj ## getCurrentPosition (position_callback)
+       geo_obj ## getCurrentPosition (react_position_callback)
 
      let map_latitude f = Boa_react.map f signal_lat
      let map_longitude f = Boa_react.map f signal_lon
 
      let track_coords () =
        Lwt.async (fun () -> Boa_job.continous process)
-       
+
+     let push_coords eltA eltB =
+       let a_input = To_dom.of_input eltA
+       and b_input = To_dom.of_input eltB in
+       let position_callback pos_obj =
+         let lat = (pos_obj ## coords ## latitude)
+         and lon = (pos_obj ## coords ## longitude) in
+         a_input ## value <- lat;
+         b_input ## value <- lon
+
+       in geo_obj ## getCurrentPosition (position_callback)
+         
 }}

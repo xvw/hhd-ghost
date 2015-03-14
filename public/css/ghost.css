@@ -9,11 +9,21 @@ body {
     text-align: center;
 }
 
-.button_standard {
+.button-standard {
     background-color: #BDE4F1;
     border-radius: 5px;
     font-weight: bold;
+    border: 0px solid black;
     border-bottom: 3px solid #003641;
     border-left: 1px solid #003641;
     border-right: 1px solid #003641;
+    padding: 8px;
+    margin: 8px;
+}
+
+.input-box input[type=text] {
+    display: block;
+    margin: 8px;
+    padding: 4px;
+    border: 0px solid black;
 }

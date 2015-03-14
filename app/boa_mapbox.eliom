@@ -11,26 +11,24 @@
 
 {client{
 
-     let get () =
-       let l = Js.Unsafe.variable "L" in
-       let map_obj = l ## mapbox in
-       let _ = map_obj ## accessToken <- token
-       in map_obj
-
-       
-     let appendTo map_obj map_id elt =
-       map_obj ## map (Js.string elt, Js.string map_id)
+     let get map_id elt =
+       let _ = Dom_html.window ## alert (Js.string "lEl") in
+       let map_obj =
+         let l = Js.Unsafe.variable "L" in
+         (l ## mapbox)
+       in
+       let _ = Dom_html.window ## alert (Js.string "lol") in
+       let _ = (map_obj ## accessToken <- token)
+       in (map_obj ## map (Js.string elt, Js.string map_id))
 
      let targetOn map_obj x y zoom =
        let coords = Js.array [|x;y|] in
-       map_obj ## setView (coords, zoom)
+       (map_obj ## setView (coords, zoom))
 
      let importParameters map_obj url =
        let layer = map_obj ## featureLayer () in
-       let _ = layer ## loadUrl (Js.string "url") in
-       layer ## addTo map_obj
-       
-       
+       let _ = (layer ## loadUrl (Js.string "url")) in
+       (layer ## addTo map_obj)
 
    }}
 
@@ -40,6 +38,7 @@ module Parameter =
     type properties =
       { title : string
       ; description : string
+      ; marker_symbol : string
       } deriving (Yojson)
 
     type geometry =
@@ -61,20 +60,22 @@ module Parameter =
       ; coordinates = [lat ; lon]
       }
 
-    let properties ~title ~descr =
+    let properties ~title ~descr ~marker_sym =
       { title = title
       ; description = descr
+      ; marker_symbol = marker_sym
       }
 
-    let marker ~title ~descr ~lat ~lon =
+    let marker ?(marker_sym="") ~title ~descr ~lat ~lon =
       { typ = "Feature"
       ; geometry   = geometry ~lat ~lon
-      ; properties = properties ~title ~descr
+      ; properties = properties ~title ~descr ~marker_sym
       }
 
     let to_string v =
       Yojson.to_string<markerlist> v
       |> Str.(global_replace (regexp "typ") ("type"))
+      |> Str.(global_replace (regexp "-") ("_"))
 
   end
     
