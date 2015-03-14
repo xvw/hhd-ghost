@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #06A0C3;
+    color: #003641;
+}
+
+.center-content {
+    text-align: center;
+}
+
+.button_standard {
+    background-color: #BDE4F1;
+    border-radius: 5px;
+    font-weight: bold;
+    border-bottom: 3px solid #003641;
+    border-left: 1px solid #003641;
+    border-right: 1px solid #003641;
+}

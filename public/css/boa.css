@@ -1,0 +1,51 @@
+/* Precise CSS*/
+
+.boa1_btn > * {
+    background-color: #1B2A59;
+    color: #FFF;
+}
+
+.boa2_btn > * {
+    background-color: #0378A6;
+    color: #FFF;
+    display: block;
+    width: 100%;
+    text-align:center;
+}
+
+.boa3_btn > * {
+    background-color: #04ADBF;
+    color: #FFF;
+}
+
+
+.boa1_btn > *,
+.boa2_btn > *,
+.boa3_btn > *{
+    margin-right:4px;
+}
+
+
+.boa1_btn > a:hover,
+.boa2_btn > a:hover,
+.boa3_btn > a:hover{
+    color:#FFF;
+    background-color: #04ADBF;
+}
+
+.label_btn {
+    font-weight: 900;
+    display:block;
+    text-align:center;
+}
+
+.alert_notif {
+    background-color: #E5B2A6;
+    color: #703337;
+}
+
+.info_notif {
+    background-color: #74DBA5;
+    color: #203D2E;
+}
+#map { position:absolute; top:0; bottom:0; width:100%; }
