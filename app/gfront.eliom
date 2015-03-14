@@ -30,7 +30,7 @@ let home_view () =
        ]
   in
   let get_f = post_form ~service:map_service form () in 
-  Boa_skeleton.return
+  Boa_skeleton.Mapbox.return
     "A sample title"
     [
       Boa_gui.modal
@@ -47,7 +47,7 @@ let map_view (lat, long) =
          Eliom_client.onload
            (fun () -> 
             let map = Boa_mapbox.get "examples.map-i86nkdio" "map" in
-            Boa_mapbox.targetOn map %lat %long 9.0
+            Boa_mapbox.targetOn map %lat %long 45.0
            )
        }}
   in 

@@ -12,12 +12,10 @@
 {client{
 
      let get map_id elt =
-       let _ = Dom_html.window ## alert (Js.string "lEl") in
        let map_obj =
          let l = Js.Unsafe.variable "L" in
          (l ## mapbox)
        in
-       let _ = Dom_html.window ## alert (Js.string "lol") in
        let _ = (map_obj ## accessToken <- token)
        in (map_obj ## map (Js.string elt, Js.string map_id))
 
