@@ -11,6 +11,9 @@
     </extension>
     <extension findlib-package="eliom.server"/>
     <extension findlib-package="macaque.syntax"/>
+    <extension findlib-package="yojson"/>
+    <extension findlib-package="deriving-yojson"/>
+    <extension findlib-package="deriving-yojson.syntax"/>
     <extension findlib-package="safepass"/>
     <host hostfilter="*">
       <static dir="public" />
