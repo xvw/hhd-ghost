@@ -23,7 +23,7 @@ module Errors = Boa_errors
 (* Entry point for custom modules *)
 {shared{
 
-     module Ghost_front = Gfront
+     module Gfront = Ghost_front
      
 }}
 
