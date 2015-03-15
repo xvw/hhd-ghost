@@ -10,24 +10,28 @@
    }}
 
 {client{
-
-     let get map_id elt =
-       let map_obj =
-         let l = Js.Unsafe.variable "L" in
-         (l ## mapbox)
-       in
-       let _ = (map_obj ## accessToken <- token)
-       in (map_obj ## map (Js.string elt, Js.string map_id))
+     let getL = Js.Unsafe.variable "L"
+     let getMapbox = getL ## mapbox
+     let set map_id elt =
+       let _ = getMapbox ## accessToken <- token
+       in (getMapbox ## map (Js.string elt, Js.string map_id))
 
      let targetOn map_obj x y zoom =
        let coords = Js.array [|x;y|] in
        (map_obj ## setView (coords, zoom))
 
-     let importParameters map_obj url =
-       let layer = map_obj ## featureLayer () in
-       let _ = (layer ## loadUrl (Js.string "url")) in
-       (layer ## addTo map_obj)
-
+     let importParameters url map =
+       let k =
+         Js.Unsafe.eval_string ("L.mapbox.featureLayer()")
+       in k ## loadURL(Js.string url);
+          k ## addTo(map)
+                                                
+     (* let importParameters map_obj url = *)
+     (*   let layer = getMapbox ## featureLayer () in *)
+     (*   let _ = Dom_html.window ## alert (layer) in *)
+     (*   let _ = layer ## loadUrl(url) in *)
+     (*   layer ## addTo(map_obj) *)
+       
    }}
 
 module Parameter =
@@ -37,6 +41,7 @@ module Parameter =
       { title : string
       ; description : string
       ; marker_symbol : string
+      ; draggable : bool
       } deriving (Yojson)
 
     type geometry =
@@ -50,7 +55,6 @@ module Parameter =
       ; properties : properties
       } deriving (Yojson)
 
-    type geojson = (marker list) deriving (Yojson)
     type markerlist = (marker list) deriving (Yojson)
 
     let geometry ~lat ~lon =
@@ -62,18 +66,19 @@ module Parameter =
       { title = title
       ; description = descr
       ; marker_symbol = marker_sym
+      ; draggable = true
       }
 
-    let marker ?(marker_sym="") ~title ~descr ~lat ~lon =
+    let marker ?(marker_sym="monument") ~title ~descr (lat, lon) =
       { typ = "Feature"
-      ; geometry   = geometry ~lat ~lon
+      ; geometry   = geometry ~lat:lat ~lon:lon
       ; properties = properties ~title ~descr ~marker_sym
       }
-
+          
     let to_string v =
       Yojson.to_string<markerlist> v
       |> Str.(global_replace (regexp "typ") ("type"))
-      |> Str.(global_replace (regexp "-") ("_"))
+      |> Str.(global_replace (regexp "_") ("-"))
 
   end
-    
+  
