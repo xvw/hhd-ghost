@@ -25,6 +25,7 @@ module Common =
 (* Entry point for service regsitration *)
 module Custom =
   struct
-
+    (* for compilation *)
+    module T = Timeline
     
   end
