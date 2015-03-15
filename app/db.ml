@@ -43,6 +43,14 @@ let table_catch =
    catch_date date NOT NULL
    )>>
 
+module User =
+  struct
+    let get_id_by_pseudo pseudo =
+      (Boa_db.view_one (<< {id = u.user_id} | u in $table_users$ ; u.pseudo = $string:pseudo$>>)) >|= (
+	fun x -> Int32.to_int (x#!id)
+      )
+  end
+    
 module Timeline =
   struct
     (* projection du resultat de la fonction get_timeline *)
