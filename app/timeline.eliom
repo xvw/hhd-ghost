@@ -3,9 +3,8 @@ open Eliom_parameter
 open Eliom_content
 open Html5
 open Boa_core
-
-
-
+open Coord
+       
 let get_closest user_id current_coord range =
   let open Db.Timeline in
   let predicate a = (Coord.distance current_coord a.c) < range
@@ -20,7 +19,6 @@ let get_closest user_id current_coord range =
        | [] -> None
        | x::xs -> Some (fst (List.fold_left p (x, Coord.distance current_coord x.c) xs))
        
-       
 let get_first_closest user_id current_coord range =
   let predicate a = Db.Timeline.(Coord.distance current_coord a.c) < range
   in Db.Timeline.get_timeline user_id >|=
@@ -29,3 +27,4 @@ let get_first_closest user_id current_coord range =
 	 | x::xs when predicate x-> Some x
 	 | x::xs -> aux xs
        in aux 
+

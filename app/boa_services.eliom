@@ -26,6 +26,6 @@ module Common =
 module Custom =
   struct
     (* for compilation *)
-    module T = Timeline
+    let test_timeline = Test.Timeline.service
     
   end

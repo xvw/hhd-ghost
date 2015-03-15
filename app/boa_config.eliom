@@ -8,6 +8,6 @@ module Db =
     let user = "boa"
     let pass = "boapassword"
     let host = "localhost"
-    let name = "boadb"
+    let name = "phantom"
 
   end
