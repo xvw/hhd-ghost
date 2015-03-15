@@ -1,6 +1,8 @@
 (* Entry point *)
 module Db = Boa_db
+{shared{
 module Core = Boa_core
+   }}
 module React = Boa_react
 module Realtime = Boa_realtime
 module Promises = Boa_promises
@@ -8,7 +10,8 @@ module Skeleton = Boa_skeleton
 module Ui = Boa_ui
 module Gui = Boa_gui
 module Errors = Boa_errors
-                  
+module Http = Boa_http
+                
 {shared{
      module Job = Boa_job
      module Uri = Boa_uri
@@ -17,13 +20,14 @@ module Errors = Boa_errors
      module Geolocation = Boa_geolocation
      module Mapbox = Boa_mapbox
      module Services = Boa_services
+     module Foursquare = Boa_foursquare
      (* module Sample = Boa_sample *)
 }}
 
 (* Entry point for custom modules *)
 {shared{
 
-     module Gfront = Ghost_front
+     (* module Gfront = Ghost_front *)
      
 }}
 
